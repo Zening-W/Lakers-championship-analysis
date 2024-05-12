@@ -5,75 +5,82 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lakers Score Distribution</title>
     <script src="https://d3js.org/d3.v7.min.js"></script>
+    <style>
+        #title {
+            text-align: center;
+            font-size: 24px;
+            margin-top: 20px;
+        }
+        .button {
+            margin: 5px;
+            padding: 8px 16px;
+            border: none;
+            background-color: #4CAF50;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .button:hover {
+            background-color: #45a049;
+        }
+    </style>
 </head>
 <body>
+    <div id="title">Lakers Championship Analysis (1996-2022)</div>
     <div id="buttons"></div>
     <div id="chart"></div>
     <script>
-        // Sample data for one year
-        const data = [
-            { player: "Player A", score: 10 },
-            { player: "Player B", score: 30 },
-            { player: "Player C", score: 20 },
-            { player: "Player D", score: 40 }
-        ];
-
-        // Set dimensions and margins for the pie chart
-        const width = 450, height = 450, margin = 40;
-        const radius = Math.min(width, height) / 2 - margin;
-
-        // Append SVG object to the body of the page
-        const svg = d3.select("#chart")
-            .append("svg")
-            .attr("width", width)
-            .attr("height", height)
-            .append("g")
-            .attr("transform", `translate(${width / 2}, ${height / 2})`);
-
-        // Set the color scale
-        const color = d3.scaleOrdinal()
-            .domain(data.map(d => d.player))
-            .range(d3.schemeCategory10);
-
-        // Compute the position of each group on the pie
-        const pie = d3.pie()
-            .value(d => d.score);
-
-        const data_ready = pie(data);
-
-        // Build the pie chart
-        svg
-            .selectAll('whatever')
-            .data(data_ready)
-            .enter()
-            .append('path')
-            .attr('d', d3.arc()
-                .innerRadius(0)
-                .outerRadius(radius)
-            )
-            .attr('fill', d => color(d.data.player))
-            .attr("stroke", "white")
-            .style("stroke-width", "2px")
-            .style("opacity", 0.7);
-
-        // Add interactive tooltips
-        svg.selectAll('path')
-            .on('mouseover', function (event, d) {
-                d3.select(this).transition()
-                    .duration('50')
-                    .attr('opacity', '.85');
-                d3.select("#chart").append("text")
-                    .attr('id', 'tooltip')
-                    .style("transform", "translate(-50%, -100px)")
-                    .style("text-anchor", "middle")
-                    .text(`${d.data.player}: ${d.data.score} points`);
-            })
-            .on('mouseout', function (d) {
-                d3.select(this).transition()
-                    .duration('50')
-                    .attr('opacity', '1');
-                d3.select("#tooltip").remove();
+        const years = ["1999-00", "2000-01", "2001-02", "2008-09", "2009-10", "2019-20"];
+        let dataSets = {};
+        years.forEach(year => {
+            d3.csv(`lakers_data_${year}.csv`).then(data => {
+                dataSets[year] = data.map(d => ({ player: d.player_name, score: +d.pts }));
+                if (year === "1999-00") updateChart(year); // Initialize chart with the first year
             });
+        });
+
+        const btnContainer = d3.select("#buttons");
+        years.forEach(year => {
+            btnContainer.append("button")
+                .text(year)
+                .attr("class", "button")
+                .on("click", () => updateChart(year));
+        });
+
+        function updateChart(year) {
+            const data = dataSets[year];
+
+            const svg = d3.select("#chart").selectAll("svg").data([null]);
+            svg.enter().append("svg")
+                .attr("width", 450)
+                .attr("height", 450)
+                .append("g")
+                .attr("transform", "translate(225, 225)")
+                .merge(svg)
+                .selectAll('path')
+                .data(d3.pie().value(d => d.score)(data))
+                .join('path')
+                .attr('d', d3.arc()
+                    .innerRadius(0)
+                    .outerRadius(180)
+                )
+                .attr('fill', (d, i) => d3.schemeCategory10[i % 10])
+                .attr("stroke", "white")
+                .style("stroke-width", "2px")
+                .style("opacity", 0.7)
+                .on('mouseover', (event, d) => {
+                    d3.select("#chart").append("text")
+                        .attr('id', 'tooltip')
+                        .attr('x', event.clientX)
+                        .attr('y', event.clientY - 30)
+                        .style("text-anchor", "middle")
+                        .text(`${d.data.player}: ${d.data.score} points`);
+                })
+                .on('mouseout', () => {
+                    d3.select("#tooltip").remove();
+                });
+        }
     </script>
 </body>
 </html>
+
