@@ -46,10 +46,10 @@
         years.forEach(year => {
             d3.csv(`lakers_data_${year}.csv`).then(data => {
                 dataSets[year] = data.map(d => ({ player: d.player_name, score: +d.pts }));
-                if (year === "1999") updateChart(year); // Initialize chart with the first year
+                if (year === "1999") updateChart(year);
             });
         });
-
+    
         const btnContainer = d3.select("#buttons");
         years.forEach(year => {
             btnContainer.append("button")
@@ -57,21 +57,21 @@
                 .attr("class", "button")
                 .on("click", () => updateChart(year));
         });
-
+    
         function updateChart(year) {
             const data = dataSets[year];
             d3.select("#chart").html(""); // Clear previous SVG
-
+    
             const svg = d3.select("#chart").append("svg")
                 .attr("width", 450)
                 .attr("height", 450)
                 .append("g")
                 .attr("transform", "translate(225, 225)");
-
+    
             const pie = d3.pie().value(d => d.score);
             const arc = d3.arc().innerRadius(0).outerRadius(180);
             const color = d3.scaleOrdinal(d3.schemeCategory10);
-
+    
             svg.selectAll('path')
                 .data(pie(data))
                 .enter()
@@ -82,11 +82,12 @@
                 .style("stroke-width", "2px")
                 .style("opacity", 0.7)
                 .on('mouseover', (event, d) => {
-                    const [x, y] = d3.pointer(event, svg.node());
+                    let recorded_mouse_position = { x: event.pageX, y: event.pageY };
                     d3.select("#chart").append("text")
                         .attr('id', 'tooltip')
-                        .attr('x', x)
-                        .attr('y', y - 10)
+                        .style("position", "absolute")
+                        .style("left", `${recorded_mouse_position.x + 10}px`) // Adjust X position + offset
+                        .style("top", `${recorded_mouse_position.y + 10}px`) // Adjust Y position + offset
                         .attr("text-anchor", "middle")
                         .text(`${d.data.player}: ${d.data.score} points`);
                 })
