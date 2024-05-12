@@ -6,6 +6,12 @@
     <title>Lakers Score Distribution</title>
     <script src="https://d3js.org/d3.v7.min.js"></script>
     <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-family: Arial, sans-serif;
+        }
         #title {
             text-align: center;
             font-size: 24px;
@@ -23,6 +29,11 @@
         .button:hover {
             background-color: #08a9e9;
         }
+        #chart {
+            display: flex;
+            justify-content: center;
+            width: 100%;
+        }
     </style>
 </head>
 <body>
@@ -35,7 +46,7 @@
         years.forEach(year => {
             d3.csv(`lakers_data_${year}.csv`).then(data => {
                 dataSets[year] = data.map(d => ({ player: d.player_name, score: +d.pts }));
-                if (year === "1999") updateChart(year); 
+                if (year === "1999") updateChart(year); // Initialize chart with the first year
             });
         });
 
@@ -49,31 +60,34 @@
 
         function updateChart(year) {
             const data = dataSets[year];
+            d3.select("#chart").html(""); // Clear previous SVG
 
-            const svg = d3.select("#chart").selectAll("svg").data([null]);
-            svg.enter().append("svg")
+            const svg = d3.select("#chart").append("svg")
                 .attr("width", 450)
                 .attr("height", 450)
                 .append("g")
-                .attr("transform", "translate(225, 225)")
-                .merge(svg)
-                .selectAll('path')
-                .data(d3.pie().value(d => d.score)(data))
-                .join('path')
-                .attr('d', d3.arc()
-                    .innerRadius(0)
-                    .outerRadius(180)
-                )
-                .attr('fill', (d, i) => d3.schemeCategory10[i % 10])
+                .attr("transform", "translate(225, 225)");
+
+            const pie = d3.pie().value(d => d.score);
+            const arc = d3.arc().innerRadius(0).outerRadius(180);
+            const color = d3.scaleOrdinal(d3.schemeCategory10);
+
+            svg.selectAll('path')
+                .data(pie(data))
+                .enter()
+                .append('path')
+                .attr('d', arc)
+                .attr('fill', (d, i) => color(i))
                 .attr("stroke", "white")
                 .style("stroke-width", "2px")
                 .style("opacity", 0.7)
                 .on('mouseover', (event, d) => {
+                    const [x, y] = d3.pointer(event, svg.node());
                     d3.select("#chart").append("text")
                         .attr('id', 'tooltip')
-                        .attr('x', event.clientX)
-                        .attr('y', event.clientY - 30)
-                        .style("text-anchor", "middle")
+                        .attr('x', x)
+                        .attr('y', y - 10)
+                        .attr("text-anchor", "middle")
                         .text(`${d.data.player}: ${d.data.score} points`);
                 })
                 .on('mouseout', () => {
@@ -83,4 +97,5 @@
     </script>
 </body>
 </html>
+
 
