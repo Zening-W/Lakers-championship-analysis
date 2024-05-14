@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lakers Score Distribution</title>
     <script src="https://d3js.org/d3.v7.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
     <style>
         body {
             display: flex;
@@ -12,29 +13,28 @@
             align-items: center;
             font-family: 'Arial', sans-serif;
             margin: 0;
-            background-color: #552583; /* Lakers purple */
-        }
-        #header {
-            text-align: center;
+            background-color: #552583;
         }
         #title {
+            text-align: center;
             font-size: 28px;
             margin: 20px;
-            color: #FFFFFF; /* Set text color to white for visibility */
+            color: white; /* 更改为白色以增强可读性 */
+            font-family: 'Anton', sans-serif; /* 使用 Anton 字体 */
         }
         .button {
             margin: 5px;
             padding: 10px 20px;
             border: 1px solid transparent;
-            background-color: #FDB927; /* Lakers gold */
-            color: #552583; /* Lakers purple */
+            background-color: #FDB927;
+            color: #552583;
             border-radius: 8px;
             cursor: pointer;
             font-size: 16px;
             transition: background-color 0.3s, transform 0.2s;
         }
         .button:hover, .button:focus {
-            background-color: #08a9e9; /* Light blue on hover */
+            background-color: #08a9e9;
             transform: scale(1.05);
             outline: none;
         }
@@ -63,7 +63,7 @@
     </div>
     <div id="buttons"></div>
     <div id="chart"></div>
-    <div class="tooltip" id="tooltip" style="display: none;"></div>
+    <div class="tooltip"
     <script>
         const years = ["1999", "2000", "2001", "2008", "2009", "2019"];
         let dataSets = {};
