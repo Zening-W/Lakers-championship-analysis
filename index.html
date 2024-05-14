@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lakers Score Distribution</title>
-    <script src="https://d3js.org/d3.v7.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
     <style>
         body {
@@ -19,8 +18,8 @@
             text-align: center;
             font-size: 28px;
             margin: 20px;
-            color: white; 
-            font-family: 'Anton', sans-serif; 
+            color: white;  // 提高可读性
+            font-family: 'Bebas Neue', sans-serif; // 使用 Bebas Neue 字体
         }
         .button {
             margin: 5px;
@@ -63,67 +62,9 @@
     </div>
     <div id="buttons"></div>
     <div id="chart"></div>
-    <div class="tooltip"
-    <script>
-        const years = ["1999", "2000", "2001", "2008", "2009", "2019"];
-        let dataSets = {};
-
-        // Pre-load all CSV file data
-        years.forEach(year => {
-            d3.csv(`lakers_data_${year}.csv`).then(data => {
-                dataSets[year] = data.map(d => ({
-                    player: d.player_name,
-                    score: +d.pts * +d.gp,
-                    totalPoints: +d.total_points
-                }));
-                if (year === "1999") updateChart(year); // Load first year's data by default as initial display
-            });
-        });
-
-        function updateChart(year) {
-            const data = dataSets[year];
-            d3.select("#chart").html(""); // Clear previous SVG
-
-            const svg = d3.select("#chart").append("svg")
-                .attr("width", "100%")
-                .attr("height", "450")
-                .append("g")
-                .attr("transform", "translate(" + Math.min(300, document.getElementById('chart').clientWidth / 2) + ",225)");
-
-            const pie = d3.pie().value(d => d.totalPoints);
-            const arc = d3.arc().innerRadius(0).outerRadius(180);
-            const color = d3.scaleOrdinal(d3.schemeCategory10);
-
-            svg.selectAll('path')
-                .data(pie(data))
-                .enter()
-                .append('path')
-                .attr('d', arc)
-                .attr('fill', (d, i) => color(i))
-                .attr("stroke", "white")
-                .style("stroke-width", "2px")
-                .style("opacity", 0.8)
-                .on('mouseover', (event, d) => {
-                    const tooltip = d3.select('#tooltip');
-                    tooltip.style("display", "block")
-                           .style("left", (event.pageX + 10) + "px")
-                           .style("top", (event.pageY + 10) + "px")
-                           .html(`${d.data.player}: ${d.data.totalPoints} points`);
-                })
-                .on('mouseout', () => {
-                    d3.select("#tooltip").style("display", "none");
-                });
-        }
-
-        const btnContainer = d3.select("#buttons");
-        years.forEach(year => {
-            btnContainer.append("button")
-                .text(year)
-                .attr("class", "button")
-                .on("click", () => updateChart(year));
-        });
-    </script>        
+    <div class="tooltip" id="tooltip" style="display: none;"></div>
 </body>
 </html>
+
 
 
