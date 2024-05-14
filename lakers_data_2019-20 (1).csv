@@ -1,0 +1,31 @@
+# Column Descriptions:
+# gp: Games Played.
+# pts: (场均得分) points (per game).
+# reb: (篮板) Rebounds. The number of times a team or player recovers the ball after a missed shot attempt.
+# ast: (助攻) how many of this person's teammates made goals were a result of that player's assists.
+# net_rating: (每百回合净胜分) the team's point differential per 100 possessions while he is on court.
+# oreb_pct: (抢下进攻篮板百分比) the percentage of team offensive rebounds grabbed by a player or team.
+# dreb_pct: (抢下防守篮板百分比) the percentage of team defensive rebounds grabbed by a player or team.
+# usg_pct: (结束控球百分比(被犯规，没投进)) the percentage of his team's possessions that a player ends (via field goal attempts, turnovers and trips to the line) while he's on the floor.
+# ts_pct: (真实投篮命中率(罚球被加权)) Pts/(2*(FGA + (.44*FTA)))
+# ast_pct: (助攻率) The percentage of a team's assists that a player has while on the court.
+Unnamed: 0,player_name,team_abbreviation,age,player_height,player_weight,college,country,draft_year,draft_round,draft_number,gp,pts,reb,ast,net_rating,oreb_pct,dreb_pct,usg_pct,ts_pct,ast_pct,season
+10166,Isaac Bonga,LAL,19,203.2,81.64656,None,Germany,2018,2,39,22,0.9,1.1,0.7,7.0,0.064,0.113,0.151,0.24,0.163,2019-20
+10178,Jemerrio Jones,LAL,24,195.58,78.925008,None,USA,Undrafted,Undrafted,Undrafted,6,4.5,8.2,2.2,10.7,0.1,0.198,0.108,0.398,0.115,2019-20
+10216,JaVale McGee,LAL,31,213.36,122.46984,Nevada-Reno,USA,2008,1,18,75,12.0,7.5,0.7,-4.4,0.112,0.203,0.197,0.634,0.045,2019-20
+10250,Brandon Ingram,LAL,21,205.74,86.18248,Duke,USA,2016,1,2,52,18.3,5.1,3.0,-1.5,0.022,0.113,0.227,0.555,0.127,2019-20
+10277,Alex Caruso,LAL,25,195.58,84.368112,Texas A&M,USA,Undrafted,Undrafted,Undrafted,25,9.2,2.7,3.1,3.2,0.035,0.079,0.184,0.569,0.205,2019-20
+10367,Johnathan Williams,LAL,24,205.74,103.418976,Gonzaga,USA,Undrafted,Undrafted,Undrafted,24,6.5,4.1,0.5,7.6,0.116,0.13,0.158,0.599,0.051,2019-20
+10375,Scott Machado,LAL,29,185.42,92.98636,Iona,USA,Undrafted,Undrafted,Undrafted,4,2.5,0.0,0.8,0.0,0.0,0.0,0.13,0.776,0.214,2019-20
+10415,Rajon Rondo,LAL,33,185.42,84.368112,Kentucky,USA,2006,1,21,46,9.2,5.3,8.0,-8.6,0.023,0.142,0.172,0.473,0.36,2019-20
+10420,Reggie Bullock,LAL,28,200.66,92.98636,North Carolina,USA,2013,1,25,63,11.3,2.7,2.0,-1.3,0.011,0.082,0.154,0.563,0.096,2019-20
+10437,Tyson Chandler,LAL,36,215.9,108.86208,None,USA,2001,1,2,55,3.1,5.6,0.7,-1.9,0.094,0.213,0.084,0.63,0.057,2019-20
+10504,Kentavious Caldwell-Pope,LAL,26,195.58,92.98636,Georgia,USA,2013,1,8,82,11.4,2.9,1.3,-3.7,0.022,0.088,0.175,0.568,0.077,2019-20
+10520,Kyle Kuzma,LAL,23,205.74,99.79024,Utah,USA,2017,1,27,70,18.7,5.5,2.5,-1.3,0.025,0.127,0.233,0.546,0.113,2019-20
+10525,Lance Stephenson,LAL,28,198.12,104.32616,Cincinnati,USA,2010,2,40,68,7.2,3.2,2.1,-4.5,0.026,0.15,0.197,0.529,0.175,2019-20
+10547,Josh Hart,LAL,24,195.58,97.52228,Villanova,USA,2017,1,30,67,7.8,3.7,1.4,0.4,0.019,0.109,0.13,0.526,0.072,2019-20
+10565,LeBron James,LAL,34,203.2,113.398,None,USA,2003,1,1,55,27.4,8.5,8.3,2.0,0.029,0.193,0.311,0.588,0.376,2019-20
+10567,Lonzo Ball,LAL,21,198.12,86.18248,UCLA,USA,2017,1,2,47,9.9,5.3,5.4,-0.7,0.036,0.124,0.167,0.487,0.236,2019-20
+10571,Mike Muscala,LAL,27,210.82,108.86208,Bucknell,USA,2013,2,44,64,7.0,3.8,1.2,1.0,0.041,0.133,0.138,0.564,0.081,2019-20
+10581,Moritz Wagner,LAL,22,210.82,111.13004,Michigan,Germany,2018,1,25,43,4.8,2.0,0.6,-9.8,0.035,0.142,0.21,0.533,0.084,2019-20
+10598,Michael Beasley,LAL,30,205.74,106.59412,Kansas State,USA,2008,1,2,26,7.0,2.3,1.0,-6.0,0.044,0.153,0.288,0.532,0.149,2019-20
